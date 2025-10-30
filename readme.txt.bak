@@ -27,14 +27,14 @@ or functions for Fig S2A-C: Annotation coverage statistics
 │       ├── train_model.py             # Train models on different proteomics datasets
 │       └── validation_analysis.py
 ├── figures                            # This directory contains the python scripts and results of ROC-AUC and PR-AUC of machine learning models
-│   ├── auc_curves                     # ROC-AUC curve plots of internal and external tests
+│   ├── auc_curves
 │   │   ├── external_roc.pdf
 │   │   └── internal_roc.pdf
-│   ├── boxplot                        # Box plots of ROC-AUC and PR-AUC
+│   ├── boxplot
 │   │   ├── seed_auc_boxplot_external.pdf
 │   │   ├── seed_auc_boxplot_internal.pdf
 │   │   ├── seed_prauc_boxplot_external.pdf
 │   │   └── seed_prauc_boxplot_internal.pdf
-│   ├── plot_auc_boxplots.py          # Generate boxplots illustrating the distribution of ROC-AUC scores across 20 random seeds.
-│   └── plot_pr_auc_boxplots.py       # Create boxplots that depict the distribution of PR-AUC (Precision-Recall Area Under the Curve) scores across 20 random seeds
+│   ├── plot_auc_boxplots.py
+│   └── plot_pr_auc_boxplots.py
 └── readme.txt
