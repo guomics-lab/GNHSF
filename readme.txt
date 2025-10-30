@@ -14,8 +14,7 @@ This repository contains the main analysis codes used to generate figures in the
 │   │   ├── fig6_figs8_figs9_figs11.R # This script analyzes and visualizes T2D-associated features. Note: Perform GLM analysis on the FH cohort and run machine learning code to export ML-related features before executing relevant sections. Includes: Fig 6A: Network visualization of T2D-associated species; Fig 6C: Network visualization of T2D-associated metaproteomic features; Fig S8B: Comparison between metaproteomics and metagenomics data; Fig S9A-B: T2D-related species and their produced microbial protein groups; Fig S11A: GLM associations of M. elsdenii proteins with T2D and T2D medication
 │   │   ├── fig7.R                     # This script visualizes in vivo and in vitro biological validation data. Includes: Fig 7: All panels for biological validation experiments
 │   │   ├── figs1.R                    # This script generates supplementary figure 1. Note: Run figs1_part_getBC.R first to calculate Bray-Curtis distance matrices for all replicate types. Includes: Fig S1A-B, Fig 1C: Correlation coefficients and Bray-Curtis distances for all replicates; Fig S1C: PCoA of all 2,514 samples
-│   │   ├── figs2_mapping.R            # This script calculates the proportion of each sample annotated to taxa
-or functions for Fig S2A-C: Annotation coverage statistics
+│   │   ├── figs2_mapping.R            # This script calculates the proportion of each sample annotated to taxa or functions for Fig S2A-C: Annotation coverage statistics
 │   │   ├── figs3_count.R              # This script generates Fig S3A-H: Count statistics of top features
 │   │   ├── figs4.R                    # This script generates all panels in Fig S4: Complete supplementary figure 4
 │   │   ├── figs5_figs6.R              # This script calculates and visualizes all core features of the GNHSF metaproteomic dataset. Includes Fig S5 & Fig S6: All panels showing core metaproteomic features
