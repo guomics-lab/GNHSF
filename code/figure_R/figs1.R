@@ -15,9 +15,9 @@ standardize_ident <- function(x) {
     position <- sapply(parts, `[`, 2)
     batch <- sub("^b", "", batch)  
     batch <- sprintf("b%02d", as.integer(batch))  
-    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  # 提取数字
-    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  # 提取字母
-    pos_num <- sprintf("%02d", as.integer(pos_num))  # 补齐数字为两位
+    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  
+    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position) 
+    pos_num <- sprintf("%02d", as.integer(pos_num)) 
     position <- paste0(pos_num, pos_text)
     rename <- paste0(batch, "_", position)
   }else{
@@ -63,9 +63,9 @@ standardize_ident <- function(x) {
     position <- sapply(parts, `[`, 2)
     batch <- sub("^b", "", batch)  
     batch <- sprintf("b%02d", as.integer(batch))  
-    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  # 提取数字
-    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  # 提取字母
-    pos_num <- sprintf("%02d", as.integer(pos_num))  # 补齐数字为两位
+    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position) 
+    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position) 
+    pos_num <- sprintf("%02d", as.integer(pos_num))  
     position <- paste0(pos_num, pos_text)
     rename <- paste0(batch, "_", position)
   }else{
@@ -207,9 +207,9 @@ standardize_ident <- function(x) {
     position <- sapply(parts, `[`, 2)
     batch <- sub("^b", "", batch)  
     batch <- sprintf("b%02d", as.integer(batch))  
-    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  # 提取数字
-    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  # 提取字母
-    pos_num <- sprintf("%02d", as.integer(pos_num))  # 补齐数字为两位
+    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position) 
+    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  
+    pos_num <- sprintf("%02d", as.integer(pos_num)) 
     position <- paste0(pos_num, pos_text)
     rename <- paste0(batch, "_", position)
   }else{
@@ -254,9 +254,9 @@ standardize_ident <- function(x) {
     position <- sapply(parts, `[`, 2)
     batch <- sub("^b", "", batch)  
     batch <- sprintf("b%02d", as.integer(batch))  
-    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  # 提取数字
-    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  # 提取字母
-    pos_num <- sprintf("%02d", as.integer(pos_num))  # 补齐数字为两位
+    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  
+    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  
+    pos_num <- sprintf("%02d", as.integer(pos_num)) 
     position <- paste0(pos_num, pos_text)
     rename <- paste0(batch, "_", position)
   }else{
@@ -535,9 +535,9 @@ standardize_ident <- function(x) {
     position <- sapply(parts, `[`, 2)
     batch <- sub("^b", "", batch)  
     batch <- sprintf("b%02d", as.integer(batch))  
-    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  # 提取数字
-    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  # 提取字母
-    pos_num <- sprintf("%02d", as.integer(pos_num))  # 补齐数字为两位
+    pos_num <- sub("^([0-9]+)([a-zA-Z]*)$", "\\1", position)  
+    pos_text <- sub("^([0-9]+)([a-zA-Z]*)$", "\\2", position)  
+    pos_num <- sprintf("%02d", as.integer(pos_num)) 
     position <- paste0(pos_num, pos_text)
     rename <- paste0(batch, "_", position)
   }else{
@@ -561,25 +561,19 @@ metadata3$group <- ifelse(metadata3$label1=="pool",metadata3$pool,ifelse(metadat
 pepall <- fread("~/Documents/gnhsf/data202509/metaproteomics/07.matrix/all/GNHSF_diann_IGC_humanswiss_protein_all.tsv", sep = "\t")
 rownames(pepall) <- pepall$Protein.Group
 
-# 过滤高缺失率特征（NA > 80%）
 aa <- apply(pepall[, 2:ncol(pepall)], 1, function(x) length(which(is.na(x))) / 2514)
 #pepall1 <- pepall[-which(aa > 0.8), ]
 pepall1 <- pepall
 
-# 替换 NA 为 0
 pepall1[is.na(pepall1)] <- 0
 
-# 在 pepall1 上直接转置（样本在行，特征在列）
 pepall1_t <- data.frame(t(pepall1[, -1]))
 pepall1_t$sample <- rownames(pepall1_t)
 
-# 标准化样本名
 pepall1_t$sample <- sapply(pepall1_t$sample, standardize_ident)
 
-# 合并元数据
 pep_data <- merge(metadata3[, c(9,ncol(metadata3))], pepall1_t, by = "sample")
 
-# 提取特征数据（移除元数据列和样本名列）
 pep_data2 <- pep_data[, 3:(ncol(pep_data))]
 rownames(pep_data2) <- pep_data$sample
 empty_rows <- rowSums(pep_data2 != 0 & !is.na(pep_data2)) == 0

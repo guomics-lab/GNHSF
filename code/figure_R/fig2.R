@@ -51,7 +51,7 @@ stats1 <- data.frame(table(all.sig[,c(1)]))
 stats2 <-data.frame(table(all.sig[, c(1,15)])) 
 stats3 <- data.frame(table(all.sig$Cinfo_type))
 
-##fig2b heatmap####
+##fig2b-d heatmap####
 for (x in level) {
 text <- subset(all.glm,level==x)
 write.csv(text,paste0("~/Documents/gnhsf/data202509/code/glm/glm/",x, "_NA90_all_meta_glm_res_adj_categroy.csv"),row.names = F)   

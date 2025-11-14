@@ -177,8 +177,6 @@ taxon4$logFC <- scale(as.numeric(taxon4$logFC))
 
 write.csv(taxon4,"GNHSF_coregenus_match20220323.csv")
 library(GOplot)
-##最后一列的列名必须是logFC才能识别
-
 GOChord(taxon4,gene.order = "logFC",lfc.col= c("darkred","lightcoral","white"),gene.size = 3,ribbon.col = brewer.pal(8, "Set3"))
 ggsave("GNHSF_coregenus_chord_20220323.pdf")
 

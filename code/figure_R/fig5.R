@@ -381,7 +381,7 @@ HBP2.genus <- subset(HBP4,level=="genus")
 HBP2.species <- subset(HBP4,level=="species")
 
 
-###human sig fig5 D####
+###human sig fig5 D-G####
 human.sig <- subset(all.sig.1,level=="humanprotein")
 human.sig <- merge(human.sig,anno.human,by.x="feature",by.y="protein")
 
@@ -402,8 +402,6 @@ all.human$des <- paste0(all.human$Entry.Name,": ",all.human$Protein.names)
 library(reshape2)
 
 ####myosin 
-#myolist <- unique(c(dlp.human$feature[grep("myosin|Myosin",dlp.human$Protein.names)],dlp2.human$feature[grep("myosin|Myosin",dlp2.human$Protein.names)],DM.human$feature[grep("myo|Myo",DM.human$Protein.names)],DM2.human$feature[grep("myo|Myo",DM2.human$Protein.names)],
-#                    HBP.human$feature[grep("myosin|Myosin",HBP.human$Protein.names)],HBP2.human$feature[grep("myosin|Myosin",HBP2.human$Protein.names)]))
 myolist <- unique(c(dlp.human$feature[grep("myosin|Myosin",dlp.human$Protein.names)],DM.human$feature[grep("myosin|Myosin",DM.human$Protein.names)],
                     HBP.human$feature[grep("myosin|Myosin",HBP.human$Protein.names)]))
 myosin.list <- all.human[which(all.human$feature %in% myolist),]
@@ -420,8 +418,8 @@ group.sig <- group.sig[,c(3:8)]
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间6个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间6个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5)  
 )
 pdf("myosin.pdf")
 pheatmap(group,display_numbers = as.matrix(group.sig),cluster_cols = F,breaks = breaks,color=colors)
@@ -430,7 +428,6 @@ dev.off()
 
 ####immuno
 library(reshape2)
-#immunolist <- unique(c(DM.human$feature[grep("Immun|immun",DM.human$Protein.names)],DM2.human$feature[grep("Immun|immun",DM2.human$Protein.names)]))
 immunolist <- unique(c(DM.human$feature[grep("Immun|immun",DM.human$Protein.names)]))
 immuno.list <- all.human[which(all.human$feature %in% immunolist),]
 group <- dcast(immuno.list,feature+des~metadata,value.var ="Estimate")
@@ -445,8 +442,8 @@ group.sig <- group.sig[,5:6]
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间6个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间6个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5)   
 )
 pdf("immuno.pdf")
 pheatmap(group,display_numbers = as.matrix(group.sig),cluster_cols = F,breaks = breaks,color=colors)
@@ -469,16 +466,14 @@ group.sig <- group.sig[,5:6]
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间6个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间6个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5)  
 )
 pdf("cytochrome.pdf")
 pheatmap(group,display_numbers = as.matrix(group.sig),cluster_cols = F,breaks = breaks,color=colors)
 dev.off()
 
 ####ribo
-#ribolist <- unique(c(DM.human$feature[grep("riboso|Riboso",DM.human$Protein.names)],DM2.human$feature[grep("riboso|Riboso",DM2.human$Protein.names)],
-#                    HBP.human$feature[grep("riboso|Riboso",HBP.human$Protein.names)],HBP2.human$feature[grep("riboso|Riboso",HBP2.human$Protein.names)]))
 ribolist <- unique(c(DM.human$feature[grep("riboso|Riboso",DM.human$Protein.names)],DM2.human$feature[grep("riboso|Riboso",DM2.human$Protein.names)],
                      HBP.human$feature[grep("riboso|Riboso",HBP.human$Protein.names)],HBP2.human$feature[grep("riboso|Riboso",HBP2.human$Protein.names)]))
 ribo.list <- all.human[which(all.human$feature %in% ribolist),]
@@ -493,8 +488,8 @@ group.sig <- group.sig[,5:8]
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间6个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间6个
+  colorRampPalette(c("cyan3", "lightblue"))(5), 
+  colorRampPalette(c("thistle2","lightcoral"))(5)  
 )
 pdf("riboso.pdf")
 pheatmap(group,display_numbers = as.matrix(group.sig),cluster_cols = F,breaks = breaks,color=colors)
@@ -624,7 +619,7 @@ p <- dotplot(target.enrich, includeAll=TRUE, size="RichFactor",showCategory=50)
 p_colorbar <- ggplot(unique(compare[,c(1,17)]), aes(x = 1, y = Description, fill = B)) +
   geom_tile(color = "white", width = 0.1) +
   scale_fill_manual(values = color ) +
-  theme_void() + theme(legend.position = "left")   # 去掉背景、坐标轴
+  theme_void() + theme(legend.position = "left")   
 
 library(patchwork)
 
@@ -671,7 +666,7 @@ dm2.micro4 <- subset(dm2.micro4,species %in% DM2.pro.table$Var1[1:40])
 
 table(dm2.micro4$species)
 
-##figs10 b####
+##figs11 b####
 library(ggplot2)
 ggplot(dm2.micro4,aes(x=species.y,y=DM.med.combine2))+geom_boxplot()+coord_flip()+theme_base()
 ggsave("DM2_med_micro_prot_estimate_number20250512.pdf",width=7,height=7)

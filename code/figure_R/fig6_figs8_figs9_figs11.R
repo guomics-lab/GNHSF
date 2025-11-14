@@ -360,8 +360,8 @@ library(ComplexHeatmap)
 library(dplyr)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.6, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间6个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间6个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5)  
 )
 pdf("mega_prot_dm_glm_est.pdf")
 pheatmap(mega.esti1[,6:7],display_numbers = as.matrix(mega.esti.sig1[,6:7]),cluster_cols = F,breaks = breaks,color=colors)

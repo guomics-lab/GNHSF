@@ -18,11 +18,6 @@ mycolors<-c("#88CCEE", "#CC6677", "#DDCC77", "#117733", "#332288", "#AA4499",
             "#44AA99", "#999933", "#882255", "#661100", "#6699CC", "#888888"
 )
 
-#mycolors<-rev(c(brewer.pal(8, "Set1")[1:6]))
-## colornum = 11
-#mycolors<-rev(c(brewer.pal(8, "Set1"), brewer.pal(9, "Paired")[1], brewer.pal(9, "Paired")[9], brewer.pal(8, "Pastel2")[8]))
-## colornum = 10
-#mycolors<-c(brewer.pal(8, "Set1"), brewer.pal(9, "Paired")[1], brewer.pal(9, "Paired")[9])
 
 # species_phylum_pepcount
 sp_pepcount <- as.data.frame(read_tsv("pepcount_species_phylum_shortname.txt"))

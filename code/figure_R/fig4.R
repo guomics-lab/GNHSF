@@ -84,8 +84,8 @@ met.human.est.sig[met.human.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4),  
+  colorRampPalette(c("lightcoral", "darkred"))(4)   
   )
 pheatmap(met.human.est[,-1:-2],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = as.matrix(met.human.est.sig[,-1:-2]))
 
@@ -93,21 +93,17 @@ met.human.est2 <- met.human.est[,-1:-2]
 met.human.est2$annotate <- NA
 met.human.est.sig2 <- met.human.est.sig[,-1:-2]
 for (i in 1:nrow(met.human.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.human.est2[i, 1:(ncol(met.human.est2)-1)])
   row_p <- as.character(met.human.est.sig2[i, ])
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.human.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.human.est2$annotate[i] <- "share.all.same.dir"
   }
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -115,7 +111,6 @@ for (i in 1:nrow(met.human.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -150,8 +145,8 @@ met.micro.est.sig[met.micro.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4),  
+  colorRampPalette(c("lightcoral", "darkred"))(4)   
 )
 pheatmap(met.micro.est[,-1:-2],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = as.matrix(met.micro.est.sig[,-1:-2]))
 
@@ -159,22 +154,18 @@ met.micro.est2 <- met.micro.est[,-1:-2]
 met.micro.est2$annotate <- NA
 met.micro.est.sig2 <- met.micro.est.sig[,-1:-2]
 for (i in 1:nrow(met.micro.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.micro.est2[i, 1:(ncol(met.micro.est2)-1)])
   row_p <- as.character(met.micro.est.sig2[i, ])
   
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.micro.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.micro.est2$annotate[i] <- "share.all.same.dir"
   }
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -182,7 +173,6 @@ for (i in 1:nrow(met.micro.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -223,8 +213,8 @@ met.genus.est.sig[met.genus.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4), 
+  colorRampPalette(c("lightcoral", "darkred"))(4)  
 )
 pheatmap(met.genus.est[,-1],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = as.matrix(met.genus.est.sig[,-1]))
 
@@ -232,23 +222,19 @@ met.genus.est2 <- met.genus.est[,-1]
 met.genus.est2$annotate <- NA
 met.genus.est.sig2 <- met.genus.est.sig[,-1]
 for (i in 1:nrow(met.genus.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.genus.est2[i, 1:(ncol(met.genus.est2)-1)])
   row_p <- as.character(met.genus.est.sig2[i, ])
   
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.genus.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.genus.est2$annotate[i] <- "share.all.same.dir"
   }
   
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -257,7 +243,6 @@ for (i in 1:nrow(met.genus.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -294,8 +279,8 @@ met.species.est.sig[met.species.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4),  
+  colorRampPalette(c("lightcoral", "darkred"))(4)  
 )
 pheatmap(met.species.est[,-1],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = as.matrix(met.species.est.sig[,-1]))
 
@@ -303,22 +288,18 @@ met.species.est2 <- met.species.est[,-1]
 met.species.est2$annotate <- NA
 met.species.est.sig2 <- met.species.est.sig[,-1]
 for (i in 1:nrow(met.species.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.species.est2[i, 1:(ncol(met.species.est2)-1)])
   row_p <- as.character(met.species.est.sig2[i, ])
   
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.species.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.species.est2$annotate[i] <- "share.all.same.dir"
   }
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -327,7 +308,6 @@ for (i in 1:nrow(met.species.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -358,8 +338,8 @@ met.cog.est.sig[met.cog.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4), 
+  colorRampPalette(c("lightcoral", "darkred"))(4)   
 )
 pheatmap(met.cog.est[,-1],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = as.matrix(met.cog.est.sig[,-1]))
 
@@ -367,22 +347,18 @@ met.cog.est2 <- met.cog.est[,-1]
 met.cog.est2$annotate <- NA
 met.cog.est.sig2 <- met.cog.est.sig[,-1]
 for (i in 1:nrow(met.cog.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.cog.est2[i, 1:(ncol(met.cog.est2)-1)])
   row_p <- as.character(met.cog.est.sig2[i, ])
   
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.cog.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.cog.est2$annotate[i] <- "share.all.same.dir"
   }
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -391,7 +367,6 @@ for (i in 1:nrow(met.cog.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -424,8 +399,8 @@ met.kegg.est.sig[met.kegg.est.sig=="nsig"] <- ""
 library(pheatmap)
 breaks <- c(seq(-0.6, 0, length.out = 5), seq(0, 0.4, length.out = 5)) %>% unique()
 colors <- c(
-  colorRampPalette(c("darkblue", "lightblue"))(4),  # 负数区间4个
-  colorRampPalette(c("lightcoral", "darkred"))(4)   # 正数区间3个
+  colorRampPalette(c("darkblue", "lightblue"))(4), 
+  colorRampPalette(c("lightcoral", "darkred"))(4)   
 )
 pheatmap(met.kegg.est[,-1],scale="none",show_rownames =T,breaks=breaks,color=colors,display_numbers = met.kegg.est.sig[,-1])
 
@@ -433,22 +408,18 @@ met.kegg.est2 <- met.kegg.est[,-1]
 met.kegg.est2$annotate <- NA
 met.kegg.est.sig2 <- met.kegg.est.sig[,-1]
 for (i in 1:nrow(met.kegg.est2)) {
-  # 获取当前行数据和p值
   row_values <- as.numeric(met.kegg.est2[i, 1:(ncol(met.kegg.est2)-1)])
   row_p <- as.character(met.kegg.est.sig2[i, ])
   
-  # 条件1: 至少2个显著
   if (sum(row_p != "") >= 2) {
     met.kegg.est2$annotate[i] <- "share"
   }
   
-  # 条件1.1: 全正/全负且至少2个显著
   if ((all(row_values > 0) || all(row_values < 0)) && 
       sum(row_p != "") >= 2) {
     met.kegg.est2$annotate[i] <- "share.all.same.dir"
   }
   
-  # 条件2: 3正1负且负显著
   if (sum(row_values > 0) == 3 && sum(row_values < 0) == 1) {
     neg_col <- which(row_values < 0)
     if (row_p[neg_col] != "") {
@@ -457,7 +428,6 @@ for (i in 1:nrow(met.kegg.est2)) {
     }
   }
   
-  # 条件3: 3负1正且正显著
   if (sum(row_values < 0) == 3 && sum(row_values > 0) == 1) {
     pos_col <- which(row_values > 0)
     if (row_p[pos_col] != "") {
@@ -499,8 +469,8 @@ anno_row <- met.est3[,7,drop=F]
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间4个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间3个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5) 
 )
 
 
@@ -587,7 +557,7 @@ saveNetwork(p,file_name =  "met_micro_up", selfcontained = TRUE,html = "create")
 
 library(webshot2)
 webshot2::webshot("met_micro_up.html", "met_micro_up.pdf")
-pdf_data <- pdftools::pdf_data("met_micro_up.pdf")[[1]]  # 获取第一页数据
+pdf_data <- pdftools::pdf_data("met_micro_up.pdf")[[1]] 
 order <- pdf_data$text[pdf_data$x==241]
 
 micro.up.plot3 <- micro.up.plot3[match(order,micro.up.plot3$name),]
@@ -682,7 +652,7 @@ saveNetwork(p,file_name =  "met_micro_down_1", selfcontained = TRUE,html = "crea
 
 library(webshot2)　
 webshot2::webshot("met_micro_down.html", "met_micro_down.pdf")
-pdf_data <- pdftools::pdf_data("met_micro_down_1.pdf")[[1]]  # 获取第一页数据
+pdf_data <- pdftools::pdf_data("met_micro_down_1.pdf")[[1]]  
 order <- pdf_data$text[pdf_data$x==206]
 #position will change
 
@@ -695,8 +665,8 @@ rownames(heatmap.plot) <- micro.down.plot3$name
 library(ComplexHeatmap)
 breaks <- c(seq(-0.4, 0, length.out = 6), seq(0, 0.4, length.out = 6)) %>% unique()
 colors <- c(
-  colorRampPalette(c("cyan3", "lightblue"))(5),  # 负数区间4个
-  colorRampPalette(c("thistle2","lightcoral"))(5)   # 正数区间3个
+  colorRampPalette(c("cyan3", "lightblue"))(5),  
+  colorRampPalette(c("thistle2","lightcoral"))(5)  
 )
 pdf("micro_met_down1.pdf")
 pheatmap(heatmap.plot,show_rownames = T,breaks=breaks,color=colors,display_numbers=as.matrix(micro.down.sig),fontsize_row=6,cluster_rows = F,cluster_cols = F)
