@@ -2,6 +2,7 @@ GNHSF: Population-based Metaproteomics Reveals Key Microbial Functions in Metabo
 
 This repository contains the main analysis codes used to generate figures in the GNHSF study.
 
+
 ├── code
 │   ├── figure_R                      # This directory contains the R scripts used for generating the figures in the research paper
 │   │   ├── arrange_link.R            # This script establishes the correspondence relationships among peptides, proteins, and taxa, generating the protein-taxa mapping files required by all subsequent analysis scripts.
